@@ -38,7 +38,6 @@
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             if (data.success) {
                 alert('Message sent successfully! Thank you <3');
                 document.querySelector('#name').value = '';

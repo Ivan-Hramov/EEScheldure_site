@@ -44,7 +44,7 @@
         <a href="/" class="clr-white">Home</a>
     </div>
     <div class="mobile-nav-item">
-        <a href="#work" class="clr-white">Works</a>
+        <a href="/#work" class="clr-white">Works</a>
     </div>
     <div class="mobile-nav-item">
         <a href="/contact" class="clr-white">Contact me <i class="ri-arrow-right-line"></i></a>

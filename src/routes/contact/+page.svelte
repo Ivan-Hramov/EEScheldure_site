@@ -4,6 +4,7 @@
 
 <script>
     import { onMount } from 'svelte';
+    import { addNotification } from '$lib/notificationsStore.js';
 
     let gtoken = null;
     let wasMsgSent = false;
@@ -16,11 +17,11 @@
     });
     function sendForm() {
         if (!gtoken) {
-            alert('Please complete the CAPTCHA');
+            addNotification({ message: 'Please complete the CAPTCHA', type: 'error', duration: 2000 });
             return;
         }
         if (wasMsgSent) {
-            alert('You have already sent a message.');
+            addNotification({ message: 'You have already sent a message.', type: 'error', duration: 2000 });
             return;
         }
         const name = document.querySelector('#name').value;
@@ -39,14 +40,14 @@
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                alert('Message sent successfully! Thank you <3');
+                addNotification({ message: 'Message sent successfully! Thank you <3', type: 'success', duration: 3000 });
                 document.querySelector('#name').value = '';
                 document.querySelector('#mail').value = '';
                 document.querySelector('#message').value = '';
                 document.querySelector('#submit-button').disabled = true;
                 wasMsgSent = true;
             } else {
-                alert('An error occurred while sending the message');
+                addNotification({ message: 'An error occurred while sending the message', type: 'error', duration: 3000 });
                 console.debug(data);
             }
         });
@@ -54,7 +55,7 @@
 </script>
 
 <main class="clr-white tw-flex">
-    <form on:submit={(event) => { event.preventDefault(); sendForm(); }} class="clr-white tw-flex tw-flex-col">
+    <form on:submit|preventDefault={sendForm} class="clr-white tw-flex tw-flex-col">
         <label for="name">Name:</label>
         <input type="text" placeholder="Ivan Hramov" id="name" required>
 
@@ -67,7 +68,7 @@
         <div class="submit tw-items-center">
             <button disabled id="submit-button" class="btn" type="submit" value="Submit">Send</button>
             <div class="tw-flex-grow"></div>
-            <div class="g-recaptcha" data-callback="onSubmit" data-theme="dark" data-action="SEND" data-sitekey="6LdTVZQqAAAAAK3laQ5e56ZEuz50CjXqfVZdGc90"></div>
+            <div class="g-recaptcha" data-callback="onSubmit" data-theme="dark" data-action="SENDFORM" data-sitekey="6LdTVZQqAAAAAK3laQ5e56ZEuz50CjXqfVZdGc90"></div>
         </div>
     </form>
 </main>

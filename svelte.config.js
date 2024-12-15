@@ -4,10 +4,9 @@ import adapter from '@sveltejs/adapter-static';
 const config = {
 	kit: {
 		adapter: adapter({
-			// Опционально: если сайт размещён в поддиректории
-			pages: 'build', // Директория для сборки
+			pages: 'build',
 			assets: 'build',
-			fallback: 'index.html', // Файл для маршрутов SPA
+			fallback: 'index.html',
 			precompress: false
 		}),
 		paths: {
